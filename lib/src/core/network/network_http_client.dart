@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'package:meopets/src/core/app-environment/environment.dart';
-import 'package:meopets/src/core/app-network/app_network.dart';
+import 'package:meopets/config/environment.dart';
+import 'package:meopets/src/core/network/network.dart';
 
 class NetworkHttpClient extends AppNetwork {
   final http.Client client;
@@ -11,29 +11,31 @@ class NetworkHttpClient extends AppNetwork {
     required this.environment,
   });
 
-  Uri _endpoint(String url) {
-    return Uri.parse('${environment.apiUrl}/$url');
+  Uri _endpoint(String path) {
+    const apiUrl = String.fromEnvironment('API_URL');
+    final completeUrl = '$apiUrl$path';
+    return Uri.parse(completeUrl);
   }
 
   @override
   Future<http.Response> get(
-    Uri url, {
+    String url, {
     Map<String, String>? headers,
   }) async {
     return client.get(
-      _endpoint(url.path),
+      _endpoint(url),
       headers: headers,
     );
   }
 
   @override
   Future<http.Response> post(
-    Uri url, {
+    String url, {
     Map<String, String>? headers,
     Object? body,
   }) async {
     return client.post(
-      _endpoint(url.path),
+      _endpoint(url),
       headers: headers,
       body: body,
     );
