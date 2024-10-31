@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:meopets/src/design-system/tokens/spacing.dart';
-import 'package:meopets/src/modules/create-pet/presentation/containers/create_pet_form_fields.dart';
-import 'package:meopets/src/modules/create-pet/presentation/widgets/create_pet_form_date_field_component.dart';
-import 'package:meopets/src/modules/create-pet/presentation/widgets/create_pet_form_text_field_component.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/create_pet_form_date_field_widget.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/create_pet_form_text_field_widget.dart';
 import 'package:meopets/src/design-system/tokens/typography.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/types/form_field_data.dart';
 
-class CreatePetFormContainer extends StatefulWidget {
-  final void Function(Map<dynamic, dynamic>) onSubmit;
+class CreatePetFormWidget extends StatefulWidget {
+  final void Function(List<FormFieldData>) onSubmit;
+  final List<FormFieldData> formFields;
 
-  const CreatePetFormContainer({
+  const CreatePetFormWidget({
     super.key,
     required this.onSubmit,
+    required this.formFields,
   });
 
   @override
-  State<CreatePetFormContainer> createState() => _CreatePetFormContainerState();
+  State<CreatePetFormWidget> createState() => _CreatePetFormWidgetState();
 }
 
-class _CreatePetFormContainerState extends State<CreatePetFormContainer> {
+class _CreatePetFormWidgetState extends State<CreatePetFormWidget> {
   final _formKey = GlobalKey<FormState>();
-
-  final List<FormFieldData> _formFields = createPetformFields;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,12 @@ class _CreatePetFormContainerState extends State<CreatePetFormContainer> {
         children: [
           Expanded(
             child: ListView.separated(
-              itemCount: _formFields.length,
+              itemCount: widget.formFields.length,
               separatorBuilder: (context, index) => const SizedBox(
                 height: SpacingTokens.md,
               ),
               itemBuilder: (context, index) {
-                final formField = _formFields[index];
+                final formField = widget.formFields[index];
                 return _buildFormField(formField);
               },
             ),
@@ -51,14 +51,14 @@ class _CreatePetFormContainerState extends State<CreatePetFormContainer> {
   Widget? _buildFormField(FormFieldData formField) {
     switch (formField['type']) {
       case FormFieldValueType.text:
-        return CreatePetFormTextFieldComponent(
+        return CreatePetFormTextFieldWidget(
           label: formField['label'],
           onSaved: (value) {
             formField['value'] = value;
           },
         );
       case FormFieldValueType.date:
-        return CreatePetFormDateFieldComponent(
+        return CreatePetFormDateFieldWidget(
           label: formField['label'],
           onDateSaved: (date) {
             formField['value'] = date;
@@ -78,10 +78,7 @@ class _CreatePetFormContainerState extends State<CreatePetFormContainer> {
       onPressed: () {
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
-          final formData = {
-            for (var item in _formFields) item['key']: item['value']
-          };
-          widget.onSubmit(formData);
+          widget.onSubmit(widget.formFields);
         }
       },
     );

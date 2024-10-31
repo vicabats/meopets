@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class CreatePetFormDateFieldComponent extends StatefulWidget {
+class CreatePetFormDateFieldWidget extends StatefulWidget {
   final Function(DateTime) onDateSaved;
   final String label;
 
-  const CreatePetFormDateFieldComponent({
+  const CreatePetFormDateFieldWidget({
     super.key,
     required this.onDateSaved,
     required this.label,
   });
 
   @override
-  State<CreatePetFormDateFieldComponent> createState() =>
-      _CreatePetFormDateFieldComponentState();
+  State<CreatePetFormDateFieldWidget> createState() =>
+      _CreatePetFormDateFieldWidgetState();
 }
 
-class _CreatePetFormDateFieldComponentState
-    extends State<CreatePetFormDateFieldComponent> {
+class _CreatePetFormDateFieldWidgetState
+    extends State<CreatePetFormDateFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return InputDatePickerFormField(

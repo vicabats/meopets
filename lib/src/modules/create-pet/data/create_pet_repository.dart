@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:meopets/src/core/network/network.dart';
-import 'package:meopets/src/shared/entities/my_pet_entity.dart';
 import 'package:meopets/src/shared/models/my_pet_model.dart';
 
 abstract class CreatePetRepository {
-  Future<MyPetModel> createPet(MyPet pet);
+  Future<MyPetModel> createPet(Map<String, dynamic> pet);
 }
 
 class CreatePetRepositoryImpl implements CreatePetRepository {
@@ -15,15 +14,15 @@ class CreatePetRepositoryImpl implements CreatePetRepository {
   });
 
   @override
-  Future<MyPetModel> createPet(MyPet pet) async {
+  Future<MyPetModel> createPet(Map<String, dynamic> petData) async {
     const createPetUrl = '/pets';
 
     final petModel = MyPetModel(
-      name: pet.name,
-      birthDate: pet.birthDate,
-      type: pet.type,
-      description: pet.description,
-      imageUrl: pet.imageUrl,
+      name: petData['name']!,
+      type: petData['type']!,
+      description: petData['description']!,
+      imageUrl: petData['imageUrl']!,
+      birthDate: petData['birthDate']!,
     );
 
     final response = await appNetwork.post(

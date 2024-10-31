@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CreatePetFormTextFieldComponent extends StatelessWidget {
+class CreatePetFormTextFieldWidget extends StatelessWidget {
   final String label;
   final Function(String? value) onSaved;
 
-  const CreatePetFormTextFieldComponent({
+  const CreatePetFormTextFieldWidget({
     super.key,
     required this.label,
     required this.onSaved,

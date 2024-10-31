@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meopets/src/design-system/tokens/spacing.dart';
-import 'package:meopets/src/modules/create-pet/presentation/containers/create_pet_form_container.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/create_pet_form_widget.dart';
 import 'package:meopets/src/modules/create-pet/cubit/create_pet_cubit.dart';
 import 'package:meopets/src/modules/create-pet/cubit/create_pet_state.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/types/form_field_data.dart';
 import 'package:meopets/src/shared/widgets/custom_app_bar.dart';
 import 'package:meopets/src/shared/widgets/loading_component.dart';
 import 'package:meopets/src/shared/widgets/custom_toaster.dart';
-
-typedef FormFieldData = Map<String, String?>;
 
 class CreatePetScreen extends StatefulWidget {
   const CreatePetScreen({super.key});
@@ -19,6 +18,7 @@ class CreatePetScreen extends StatefulWidget {
 
 class _CreatePetScreenState extends State<CreatePetScreen> {
   CreatePetCubit get _createPetCubit => context.read<CreatePetCubit>();
+  final List<FormFieldData> _formFields = createPetformFields;
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +46,20 @@ class _CreatePetScreenState extends State<CreatePetScreen> {
       appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(SpacingTokens.md),
-        child: CreatePetFormContainer(
-          onSubmit: onFormSubmit,
+        child: CreatePetFormWidget(
+          formFields: _formFields,
+          onSubmit: _onFormSubmit,
         ),
       ),
     );
   }
 
-  void onFormSubmit(Map<dynamic, dynamic> formFields) {
-    _createPetCubit.createPet({
-      'name': formFields['name']!,
-      'type': formFields['type']!,
-      'description': formFields['description']!,
-      'imageUrl': formFields['imageUrl']!,
-      'birthDate': formFields['birthDate']!,
-    });
+  void _onFormSubmit(List<FormFieldData> formFields) {
+    final Map<String, dynamic> formData = {
+      for (var item in createPetformFields) item['key']: item['value']
+    };
+
+    _createPetCubit.createPet(formData);
   }
 
   void _navigateToMyPets() {
