@@ -55,11 +55,7 @@ class _CreatePetScreenState extends State<CreatePetScreen> {
   }
 
   void _onFormSubmit(List<FormFieldData> formFields) {
-    final Map<String, dynamic> formData = {
-      for (var item in createPetformFields) item['key']: item['value']
-    };
-
-    _createPetCubit.createPet(formData);
+    _createPetCubit.createPet(formFields);
   }
 
   void _navigateToMyPets() {

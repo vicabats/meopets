@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:meopets/src/modules/create-pet/cubit/create_pet_cubit.dart';
 import 'package:meopets/src/modules/create-pet/cubit/create_pet_state.dart';
 import 'package:meopets/src/modules/create-pet/data/create_pet_repository.dart';
+import 'package:meopets/src/modules/create-pet/presentation/widgets/types/form_field_data.dart';
 import 'package:meopets/src/shared/models/my_pet_model.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -12,6 +13,7 @@ void main() {
 
   late MyPetModel petModel;
   late Map<String, dynamic> petObject;
+  late List<FormFieldData> createPetformFields;
 
   const petName = "name";
   const petType = "type";
@@ -21,7 +23,7 @@ void main() {
 
   group("CreatePetCubit /", () {
     void act(CreatePetCubit createPetCubit) =>
-        createPetCubit.createPet(petObject);
+        createPetCubit.createPet(createPetformFields);
 
     setUp(() {
       createPetRepository = _MockCreatePetRepository();
@@ -31,6 +33,28 @@ void main() {
       );
 
       petModel = _MockMyPetModel();
+      createPetformFields = [
+        {
+          "key": "name",
+          "value": petName,
+        },
+        {
+          "key": "type",
+          "value": petType,
+        },
+        {
+          "key": "description",
+          "value": petDescription,
+        },
+        {
+          "key": "imageUrl",
+          "value": petImageUrl,
+        },
+        {
+          "key": "birthDate",
+          "value": petBirthDate,
+        },
+      ];
 
       petObject = {
         "name": petName,
