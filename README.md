@@ -22,7 +22,7 @@ Para rodar o Meopets localmente, siga os passos abaixo:
 1. clone o repositório e navegue até sua pasta;
 2. instale as dependências com `flutter pub get`;
 3. em uma janela do terminal, acesse o diretório `database` e rode o comando `json-server --watch db.json`;
-4. crie o arquivo `.env` com base no arquivo `env.example`, adicionando a porta em que você irá rodar o client;
+4. crie o arquivo `.env` com base no arquivo `env.example`, adicionando a porta em que você irá rodar o server;
 5. rode o aplicativo com `flutter run`.
 
 ## Estrutura do projeto
