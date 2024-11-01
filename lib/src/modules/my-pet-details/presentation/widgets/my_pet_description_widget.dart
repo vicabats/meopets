@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meopets/src/design-system/tokens/spacing.dart';
 import 'package:meopets/src/design-system/tokens/typography.dart';
-import 'package:meopets/src/modules/my-pet-details/presentation/widgets/my_pet_description_info_component.dart';
+import 'package:meopets/src/modules/my-pet-details/presentation/widgets/my_pet_description_info_widget.dart';
 import 'package:meopets/src/shared/entities/my_pet_entity.dart';
 
-class MyPetDescriptionComponent extends StatelessWidget {
+class MyPetDescriptionWidget extends StatelessWidget {
   final MyPet pet;
 
-  const MyPetDescriptionComponent({
+  const MyPetDescriptionWidget({
     super.key,
     required this.pet,
   });
@@ -44,17 +44,17 @@ class MyPetDescriptionComponent extends StatelessWidget {
 
   List _buildPetInfos() {
     return [
-      MyPetDescriptionInfoComponent(
+      MyPetDescriptionInfoWidget(
         infoLabel: 'Tipo',
         infoValue: pet.type,
       ),
       const SizedBox(height: SpacingTokens.xs),
-      MyPetDescriptionInfoComponent(
+      MyPetDescriptionInfoWidget(
         infoLabel: 'Idade',
         infoValue: _calculateAge(pet.birthDate),
       ),
       const SizedBox(height: SpacingTokens.xs),
-      MyPetDescriptionInfoComponent(
+      MyPetDescriptionInfoWidget(
         infoLabel: 'Descrição',
         infoValue: pet.description,
       ),

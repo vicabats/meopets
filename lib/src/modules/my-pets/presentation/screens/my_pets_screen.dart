@@ -4,7 +4,7 @@ import 'package:meopets/src/design-system/tokens/colors.dart';
 import 'package:meopets/src/design-system/tokens/spacing.dart';
 import 'package:meopets/src/modules/my-pets/cubit/my_pets_cubit.dart';
 import 'package:meopets/src/modules/my-pets/cubit/my_pets_state.dart';
-import 'package:meopets/src/modules/my-pets/presentation/widgets/my_pets_grid.dart';
+import 'package:meopets/src/modules/my-pets/presentation/widgets/my_pets_grid_widget.dart';
 import 'package:meopets/src/modules/my-pets/presentation/widgets/my_pets_screen_bloc_listeners.dart';
 import 'package:meopets/src/shared/widgets/custom_app_bar.dart';
 import 'package:meopets/src/shared/widgets/loading_component.dart';
@@ -25,22 +25,20 @@ class _MyPetsScreenState extends State<MyPetsScreen> {
   @override
   Widget build(BuildContext context) {
     return MyPetsScreenBlocListeners(
-      builder: (BuildContext context) {
-        return BlocConsumer<MyPetsCubit, MyPetsState>(
-          listener: (context, myPetsState) {
-            if (myPetsState.status == MyPetsStatus.error) {
-              _showError();
-            }
-          },
-          builder: (context, myPetsState) {
-            if (myPetsState.status == MyPetsStatus.loading) {
-              return const LoadingComponent();
-            } else {
-              return _buildLoadedScaffold(context);
-            }
-          },
-        );
-      },
+      child: BlocConsumer<MyPetsCubit, MyPetsState>(
+        builder: (context, myPetsState) {
+          if (myPetsState.status == MyPetsStatus.loading) {
+            return const LoadingComponent();
+          } else {
+            return _buildLoadedScaffold(context);
+          }
+        },
+        listener: (context, myPetsState) {
+          if (myPetsState.status == MyPetsStatus.error) {
+            _showError();
+          }
+        },
+      ),
     );
   }
 
@@ -58,7 +56,7 @@ class _MyPetsScreenState extends State<MyPetsScreen> {
           right: SpacingTokens.lg,
           top: SpacingTokens.xl,
         ),
-        child: MyPetsGridComponent(
+        child: MyPetsGridWidget(
           myPets: _myPetsState.myPets!,
           onCardPressed: _onCardPressed,
         ),

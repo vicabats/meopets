@@ -56,12 +56,12 @@ class NetworkHttpClient extends AppNetwork {
 
   @override
   Future<http.Response> delete(
-    Uri url, {
+    String url, {
     Map<String, String>? headers,
     Object? body,
   }) async {
     return client.delete(
-      _endpoint(url.path),
+      _endpoint(url),
       headers: headers,
       body: body,
     );

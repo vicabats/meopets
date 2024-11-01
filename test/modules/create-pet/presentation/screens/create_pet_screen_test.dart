@@ -13,10 +13,7 @@ import 'package:mocktail/mocktail.dart';
 void main() {
   late CreatePetCubit createPetCubit;
 
-  late CreatePetState createPetStateLoading;
-  late CreatePetState createPetStateLoaded;
-  late CreatePetState createPetStateSuccessfullyCreated;
-  late CreatePetState createPetStateError;
+  late CreatePetState firstCreatePetState, secondCreatePetState;
 
   late NavigatorObserver navigatorObserver;
 
@@ -38,23 +35,19 @@ void main() {
     setUp(() {
       createPetCubit = _MockCreatePetCubit();
 
-      createPetStateLoading = _MockCreatePetState();
-      createPetStateLoaded = _MockCreatePetState();
-      createPetStateSuccessfullyCreated = _MockCreatePetState();
-      createPetStateError = _MockCreatePetState();
+      firstCreatePetState = _MockCreatePetState();
+      secondCreatePetState = _MockCreatePetState();
 
-      when(() => createPetStateLoading.status)
+      when(() => firstCreatePetState.status)
           .thenReturn(CreatePetStatus.loading);
-      when(() => createPetStateLoaded.status)
-          .thenReturn(CreatePetStatus.loaded);
-      when(() => createPetStateSuccessfullyCreated.status)
+
+      when(() => secondCreatePetState.status)
           .thenReturn(CreatePetStatus.successfullyCreated);
-      when(() => createPetStateError.status).thenReturn(CreatePetStatus.error);
 
       whenListen(
         createPetCubit,
         const Stream<CreatePetState>.empty(),
-        initialState: createPetStateLoading,
+        initialState: firstCreatePetState,
       );
 
       navigatorObserver = _MockNavigatorObserver();
@@ -73,13 +66,19 @@ void main() {
 
     group("given status is CreatePetStatus.loaded /", () {
       setUp(() {
-        when(() => createPetCubit.state).thenReturn(createPetStateLoaded);
+        when(() => firstCreatePetState.status)
+            .thenReturn(CreatePetStatus.loaded);
+
+        when(() => createPetCubit.state).thenReturn(firstCreatePetState);
       });
 
       testWidgets(
         "when pumped, "
         "then expect to find CustomAppBar",
         (tester) async {
+          when(() => secondCreatePetState.status)
+              .thenReturn(CreatePetStatus.loaded);
+
           await pumpCreatePetScreen(tester);
 
           final customAppBar = find.byType(CustomAppBar);
@@ -101,8 +100,7 @@ void main() {
 
     group("given status is CreatePetStatus.successfullyCreated /", () {
       setUp(() {
-        when(() => createPetCubit.state)
-            .thenReturn(createPetStateSuccessfullyCreated);
+        when(() => createPetCubit.state).thenReturn(secondCreatePetState);
       });
 
       testWidgets(

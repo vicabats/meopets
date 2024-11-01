@@ -94,10 +94,6 @@ void main() {
         "when called, "
         "then expect to throw an Exception",
         () async {
-          final mockResponse = File(
-            'test/modules/create-pet/fixtures/create_pet_response_mock.json',
-          ).readAsStringSync();
-
           when(
             () => appNetwork.post(
               urlPath,
@@ -105,7 +101,7 @@ void main() {
               body: any(named: 'body'),
             ),
           ).thenAnswer(
-            (_) async => http.Response(mockResponse, 400),
+            (_) async => http.Response("", 400),
           );
 
           expect(

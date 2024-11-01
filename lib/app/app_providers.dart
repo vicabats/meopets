@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meopets/src/core/network/network.dart';
 import 'package:meopets/src/modules/create-pet/data/create_pet_repository.dart';
 import 'package:meopets/src/modules/create-pet/cubit/create_pet_cubit.dart';
+import 'package:meopets/src/modules/my-pet-details/cubit/my_pet_details_cubit.dart';
+import 'package:meopets/src/modules/my-pet-details/data/my_pet_details_repository.dart';
 import 'package:meopets/src/modules/my-pets/data/my_pets_repository.dart';
 import 'package:meopets/src/modules/my-pets/cubit/my_pets_cubit.dart';
 import 'package:meopets/src/core/network/network_http_client.dart';
@@ -40,6 +42,11 @@ class AppProviders extends StatelessWidget {
             appNetwork: context.read<AppNetwork>(),
           ),
         ),
+        Provider<MyPetDetailsRepository>(
+          create: (context) => MyPetDetailsRepositoryImpl(
+            appNetwork: context.read<AppNetwork>(),
+          ),
+        ),
         BlocProvider<MyPetsCubit>(
           create: (context) => MyPetsCubit(
             myPetsRepository: context.read<MyPetsRepository>(),
@@ -48,6 +55,11 @@ class AppProviders extends StatelessWidget {
         BlocProvider<CreatePetCubit>(
           create: (context) => CreatePetCubit(
             createPetRepository: context.read<CreatePetRepository>(),
+          ),
+        ),
+        BlocProvider<MyPetDetailsCubit>(
+          create: (context) => MyPetDetailsCubit(
+            myPetDetailsRepository: context.read<MyPetDetailsRepository>(),
           ),
         ),
       ],

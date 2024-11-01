@@ -17,7 +17,7 @@ abstract class AppNetwork {
   });
 
   Future<dynamic> delete(
-    Uri url, {
+    String url, {
     Map<String, String>? headers,
     Object? body,
   });

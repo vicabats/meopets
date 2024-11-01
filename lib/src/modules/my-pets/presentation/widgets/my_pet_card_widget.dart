@@ -4,11 +4,11 @@ import 'package:meopets/src/design-system/tokens/spacing.dart';
 import 'package:meopets/src/design-system/tokens/typography.dart';
 import 'package:meopets/src/shared/entities/my_pet_entity.dart';
 
-class MyPetCardComponent extends StatelessWidget {
+class MyPetCardWidget extends StatelessWidget {
   final MyPet pet;
   final VoidCallback onPressed;
 
-  const MyPetCardComponent({
+  const MyPetCardWidget({
     super.key,
     required this.pet,
     required this.onPressed,

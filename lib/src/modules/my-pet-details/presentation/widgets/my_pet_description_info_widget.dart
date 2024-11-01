@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meopets/src/design-system/tokens/typography.dart';
 
-class MyPetDescriptionInfoComponent extends StatelessWidget {
+class MyPetDescriptionInfoWidget extends StatelessWidget {
   final String infoLabel;
   final dynamic infoValue;
 
-  const MyPetDescriptionInfoComponent({
+  const MyPetDescriptionInfoWidget({
     super.key,
     required this.infoLabel,
     required this.infoValue,

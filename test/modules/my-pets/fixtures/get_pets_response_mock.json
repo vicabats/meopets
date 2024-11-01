@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "name": "Buddy",
+      "type": "dog",
+      "description": "A friendly dog who loves to play fetch.",
+      "imageUrl": "https://example.com/images/buddy.jpg",
+      "birthDate": "2021-03-15"
+    },
+    {
+      "id": 2,
+      "name": "Whiskers",
+      "type": "cat",
+      "description": "A curious cat who enjoys climbing trees.",
+      "imageUrl": "https://example.com/images/whiskers.jpg",
+      "birthDate": "2020-07-22"
+    },
+    {
+      "id": 3,
+      "name": "Nemo",
+      "type": "fish",
+      "description": "A small clownfish with a lot of energy.",
+      "imageUrl": "https://example.com/images/nemo.jpg",
+      "birthDate": "2022-05-30"
+    }
+  ]
+  
